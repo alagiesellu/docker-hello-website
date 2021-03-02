@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+  test_website:
+    build:
+      context: '.'
+      args:
+        uid: ${UID}
+        user: ${USER}
+    container_name: test_website
+    ports:
+      - 8003:80
+    environment:
+      - APACHE_RUN_USER=#1000
+      - APACHE_RUN_GROUP=#1000
+    volumes:
+      - .:/var/www/html
+    networks:
+      backend:
+        aliases:
+          - app
+
+networks:
+  backend:
